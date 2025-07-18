@@ -14,5 +14,7 @@ expected answer - secrets-reader
 kubectl get pods -n todoapp
 
 execute command
-kubectl exec -n todoapp <pod_name> -- curl -s --header "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \ https://kubernetes.default.svc/api/v1/namespaces/todoapp/secrets \
---cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt | jq .
+kubectl exec -n todoapp <pod_name> -- \
+sh -c 'curl -s --header "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+https://kubernetes.default.svc/api/v1/namespaces/todoapp/secrets \
+--cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt | jq .'
